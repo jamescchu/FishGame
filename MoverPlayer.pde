@@ -1,5 +1,5 @@
 class MoverPlayer {
-  
+
   // Use booleans to eliminate unreliable key triggers
   boolean right = false, left = false, up = false, down = false;
   float spd = 5;
@@ -37,17 +37,17 @@ class MoverPlayer {
       right = false;
     }
   }
-  
+
   void update() {
-     if (up) {
-       location.y -= spd; 
-     } else if (down) {
-       location.y += spd;
-     } else if (left) {
-       location.x -= spd;
-     } else if (right) {
-       location.x += spd;
-     } 
+    if (up) {
+      location.y -= spd;
+    } else if (down) {
+      location.y += spd;
+    } else if (left) {
+      location.x -= spd;
+    } else if (right) {
+      location.x += spd;
+    }
   }
 
   void run() {

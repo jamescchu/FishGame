@@ -17,10 +17,7 @@ class Fish {
   float maxSize;
   float minSize;
   boolean isMaxSize;
-  boolean isStarved;
   int fishLength;
-  int spawnTimer;
-  int eatTimer;
   color randColor;
 
   // Define colors
@@ -115,19 +112,6 @@ class Fish {
   }
 
   void update() {
-    spawnTimer++;
-    eatTimer++;
-    if (eatTimer > 2000) {
-      isStarved = true;
-      if (eatTimer > 3000 && isStarved) {
-        float r = random(10);
-        if (r < 0.5) {
-          starved();
-        }
-      }
-    } else {
-      isStarved = false;
-    }
   }
 
   void move() {
@@ -275,17 +259,6 @@ class Fish {
   }
 
   void grow() {
-  }
-
-  void starved() {
-    setDead();
-  }
-
-  void shrink() {
-    if (fishSize < minSize) isStarved = true;
-    if (isStarved) return;
-    fishSize = fishSize - 1;
-    fishLength = fishLength - 1;
   }
 
   PVector getLoc() {

@@ -41,7 +41,6 @@ class FishPlayer extends Fish {
   void display() {
     for (int i = 0; i < location.length; i++) {
       float size = map(i, 0, location.length, 1, fishSize);
-      randColor = isStarved ? colors.get("white") : randColor;
       color c = lerpColor(randColor, colors.get("white"), 
         map(i, 0, location.length, 1, 0));
 
@@ -55,7 +54,6 @@ class FishPlayer extends Fish {
   void grow() {
     if (fishSize > maxSize) isMaxSize = true;
     if (isMaxSize) return;
-    eatTimer = 0;
     fishSize = fishSize + 1; 
     fishLength = fishLength + 1;
   }
