@@ -53,10 +53,6 @@ void draw() {
   mp.run();
   
   if (debug) db.display();
-  
-  if (mousePressed) {
-    fd.spawnFood(); 
-  }
 
   fill(255);
   text("FPS: " + frameRate, 10, 40);

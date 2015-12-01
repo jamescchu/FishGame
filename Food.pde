@@ -22,11 +22,15 @@ class Food { //<>//
     isEaten = false;
   }
 
-  void display() {}
+  void display() {
+  }
 
   void update() {
     spawnTimer++;
-    if (spawnTimer > 150) {
+    if (random(20) < 0.5) {
+      spawnFood(random(width), random(height));
+    }
+    if (spawnTimer > 550) {
       float r = random(5);
       if (r < 0.3)
         dissolve();
@@ -35,6 +39,7 @@ class Food { //<>//
 
   void run() {
     // Iterate through ArrayList
+    update();
     Iterator < Food > it = foods.iterator();
     while (it.hasNext()) {
       Food f = it.next();
@@ -87,13 +92,13 @@ class Food { //<>//
 
     body = box2d.world.createBody(bd);
     body.createFixture(fd);
-    
+
     body.setLinearVelocity(new Vec2(random(-5, 5), random(2, 5)));
     body.setAngularVelocity(random(-3, 3));
   }
 
-  void spawnFood() {
-    foods.add(new FoodSmall(new Vec2(mouseX, mouseY)));
+  void spawnFood(float x, float y) {
+    foods.add(new FoodSmall(new Vec2(x, y)));
   }
 
   Vec2 getFood() {
@@ -104,9 +109,9 @@ class Food { //<>//
     pos = box2d.coordPixelsToWorld(pos);
     body.setTransform(pos, body.getAngle());
   }
-  
+
   void dissolve() {
-    eaten(); 
+    eaten();
   }
 
   void eaten() {
