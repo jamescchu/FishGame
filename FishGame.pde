@@ -11,18 +11,13 @@ import org.jbox2d.dynamics.contacts.*;
 Box2DProcessing box2d;
 Fish fh;
 Food fd;
-Rock rk;
 Debug db;
 Utilities utl;
+MoverPlayer mp;
 
 PImage rock;
-int koiCount = 95;
-int goldKoiCount = 5;
 int currentMode = 1;
 boolean debug = false;
-String[] moveType = {
-  "Food", "Noise", "Wander", "Seek", "Steer"
-};
 
 void setup() {
   size(1024, 768, P2D); 
@@ -39,11 +34,11 @@ void setup() {
 
   fh = new Fish();
   fd = new Food();
-  rk = new Rock();
   db = new Debug();
   utl = new Utilities();
+  mp = new MoverPlayer();
 
-  fh.spawnFish();
+  fh.spawnFishPlayer();
 }
 
 void draw() {
@@ -54,28 +49,31 @@ void draw() {
 
   fd.run();
   fh.run();
-  rk.run();
+  
+  mp.run();
+  
+  if (debug) db.display();
   
   if (mousePressed) {
     fd.spawnFood(); 
   }
 
   fill(255);
-  text(moveType[currentMode], 10, 20);
   text("FPS: " + frameRate, 10, 40);
   text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 60);
 }
 
 void keyPressed ()
 {
-  if (key == ' ') {
-    // Advance forward in modes and reset
-    currentMode++;
-    if (currentMode > moveType.length - 1) currentMode = 1;
-  }
-  if (key == 'd') {
+  mp.pressed();
+  if (key == 'l') {
     debug = !debug;
   }
+}
+
+void keyReleased ()
+{
+  mp.released();
 }
 
 void beginContact(Contact cp) {
@@ -90,23 +88,23 @@ void beginContact(Contact cp) {
   Object o1 = b1.getUserData();
   Object o2 = b2.getUserData();
 
-  if (o1.getClass() == FishKoi.class && o2.getClass() == FoodSmall.class) {
-    Fish p1 = (FishKoi) o1;
+  if (o1.getClass() == FishPlayer.class && o2.getClass() == FoodSmall.class) {
+    Fish p1 = (FishPlayer) o1;
     Food p2 = (FoodSmall) o2;
     p1.grow();
     p2.eaten();
   }
 
-  if (o1.getClass() == FishGoldKoi.class && o2.getClass() == FoodSmall.class) {
-    Fish p1 = (FishGoldKoi) o1;
+  if (o1.getClass() == FishEnemy.class && o2.getClass() == FoodSmall.class) {
+    Fish p1 = (FishEnemy) o1;
     Food p2 = (FoodSmall) o2;
     p1.grow();
     p2.eaten();
   }
 
-  if (o1.getClass() == FishKoi.class && o2.getClass() == FishGoldKoi.class) {
-    Fish p1 = (FishKoi) o1;
-    Fish p2 = (FishGoldKoi) o2;
+  if (o1.getClass() == FishPlayer.class && o2.getClass() == FishEnemy.class) {
+    Fish p1 = (FishPlayer) o1;
+    Fish p2 = (FishEnemy) o2;
     if (p2.fishSize > p1.fishSize) {
       //p1.setDead();
     }

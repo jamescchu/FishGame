@@ -1,12 +1,12 @@
-class FishKoi extends Fish {
+class FishPlayer extends Fish {
 
-  FishKoi() {
+  FishPlayer() {
     // Need to define size first
     fishSize = fishLength < 15 ? random(13, 14) : random(16, 18);
     maxSize = 26;
 
     // Create Box2d body
-    makeBody(random(width), random(height));
+    makeBody(width/2, height/2);
     body.setUserData(this);
 
     // Set random cololor variable
@@ -32,6 +32,11 @@ class FishKoi extends Fish {
       location[i] = location[0].copy();
     }
   }
+  
+  void mode() {
+    Vec2 location = box2d.coordPixelsToWorld(mp.getMover());
+    steer(location,1); 
+  }
 
   void display() {
     for (int i = 0; i < location.length; i++) {
@@ -56,8 +61,7 @@ class FishKoi extends Fish {
   }
 
   void run() {
-    int s = fd.foods.isEmpty() ? currentMode : 0;
-    mode(s);
+    mode();
     update();
     move();
     display();

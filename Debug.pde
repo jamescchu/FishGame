@@ -1,5 +1,6 @@
 class Debug {
-  Debug() {}
+  Debug() {
+  }
 
   void drawWanderDebug(Vec2 _location, Vec2 _circle, Vec2 _target, float rad) {
     Vec2 location = box2d.coordWorldToPixels(_location);
@@ -12,6 +13,13 @@ class Debug {
     ellipse(target.x, target.y, 4, 4);
     line(location.x, location.y, circle.x, circle.y);
     line(circle.x, circle.y, target.x, target.y);
+  }
+
+  void drawMover() {
+    PVector location = mp.getMover();
+    fill(255);
+    ellipseMode(CENTER);
+    ellipse(location.x, location.y, 10, 10);
   }
 
   void drawFishDebug(Body body, float size) {
@@ -28,5 +36,9 @@ class Debug {
     // Let's add a line so we can see the rotation
     line(0, 0, size, 0);
     popMatrix();
+  }
+
+  void display() {
+    drawMover();
   }
 }

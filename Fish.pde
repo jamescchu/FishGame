@@ -114,9 +114,6 @@ class Fish {
     if (debug) db.drawWanderDebug(location, circleloc, target, wanderR);
   }
 
-  void flock(ArrayList <Fish> boids) {
-  }
-
   void update() {
     spawnTimer++;
     eatTimer++;
@@ -144,13 +141,8 @@ class Fish {
     setHead(location); // Update fish head location
   }
 
-  void spawnFish() {
-    for (int i = 0; i < koiCount; i++) {
-      fishes.add(new FishKoi());
-    }
-    for (int i = 0; i < goldKoiCount; i++) {
-      fishes.add(new FishGoldKoi());
-    }
+  void spawnFishPlayer() {
+    fishes.add(new FishPlayer());
   }
 
   void run() {

@@ -1,6 +1,6 @@
-class FishGoldKoi extends Fish {
+class FishEnemy extends Fish {
 
-  FishGoldKoi() {
+  FishEnemy() {
     // Need to define size first
     fishSize = random(13, 22);
     maxSize = 26;
@@ -56,9 +56,8 @@ class FishGoldKoi extends Fish {
 
   void run() {
     // If there is food spawned, then run food mode
-    int s = fd.foods.isEmpty() ? currentMode : 0;
 
-    mode(s);
+    mode(1);
     update();
     move();
     display();
