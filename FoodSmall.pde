@@ -23,6 +23,5 @@ class FoodSmall extends Food {
   void run() {
     update();
     display();
-    checkEdges();
   }
 }

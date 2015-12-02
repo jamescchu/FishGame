@@ -2,7 +2,7 @@ class FishPlayer extends Fish {
 
   FishPlayer() {
     // Need to define size first
-    fishSize = fishLength < 15 ? random(13, 14) : random(16, 18);
+    fishSize = 17;
     maxSize = 26;
 
     // Create Box2d body
@@ -14,7 +14,7 @@ class FishPlayer extends Fish {
 
     float angle = random(TWO_PI);
     direction = new Vec2(cos(angle), sin(angle));
-    speed = fishSize < 13 ? random(0.25, 0.35) : random(0.35, 0.5);
+    speed = 0.35;
     speedvar = speed;
     noiseScale = 10;
     noiseStrength = random(-1, -0.6);
@@ -41,7 +41,7 @@ class FishPlayer extends Fish {
   void display() {
     for (int i = 0; i < location.length; i++) {
       float size = map(i, 0, location.length, 1, fishSize);
-      color c = lerpColor(randColor, colors.get("white"), 
+      color c = lerpColor(colors.get("goldOrange"), colors.get("white"), 
         map(i, 0, location.length, 1, 0));
 
       noStroke();

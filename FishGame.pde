@@ -14,6 +14,7 @@ Food fd;
 Debug db;
 Utilities utl;
 MoverPlayer mp;
+EventHandler eh;
 
 PImage rock;
 int currentMode = 1;
@@ -22,7 +23,6 @@ boolean debug = false;
 void setup() {
   size(1024, 768, P2D); 
   //fullScreen();
-  rock = loadImage("rock.png");
   noStroke();
 
   // Initialize Box2D
@@ -37,6 +37,7 @@ void setup() {
   db = new Debug();
   utl = new Utilities();
   mp = new MoverPlayer();
+  eh = new EventHandler();
 
   fh.spawnFishPlayer();
 }
@@ -47,24 +48,25 @@ void draw() {
   // Step forward in time
   box2d.step();
 
+  mp.run();
+  eh.run();
+
   fd.run();
   fh.run();
-  
-  mp.run();
-  
+
   if (debug) db.display();
 
   fill(255);
-  text("FPS: " + frameRate, 10, 40);
-  text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 60);
+  text("FPS: " + frameRate, 10, 20);
+  text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 40);
 }
 
 void keyPressed ()
 {
-  mp.pressed();
   if (key == 'l') {
     debug = !debug;
   }
+  mp.pressed();
 }
 
 void keyReleased ()

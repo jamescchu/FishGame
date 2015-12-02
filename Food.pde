@@ -27,9 +27,6 @@ class Food { //<>//
 
   void update() {
     spawnTimer++;
-    if (random(20) < 0.5) {
-      spawnFood(random(width), random(height));
-    }
     if (spawnTimer > 550) {
       float r = random(5);
       if (r < 0.3)
@@ -47,28 +44,6 @@ class Food { //<>//
       if (f.isEaten) {
         it.remove();
       }
-    }
-  }
-
-  // Potentially depreciated
-  void checkEdges() {
-    Vec2 location = box2d.coordWorldToPixels(getFood());
-
-    if (location.x - foodSize / 2 > width) {
-      location.x = 0 - foodSize / 2;
-      setVecFood(location);
-    }
-    if (location.x + foodSize / 2 < 0) {
-      location.x = width + foodSize / 2;
-      setVecFood(location);
-    }
-    if (location.y - foodSize / 2 > height) {
-      location.y = 0 - foodSize / 2;
-      setVecFood(location);
-    }
-    if (location.y + foodSize / 2 < 0) {
-      location.y = height + foodSize / 2;
-      setVecFood(location);
     }
   }
 

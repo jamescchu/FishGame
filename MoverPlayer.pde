@@ -3,6 +3,7 @@ class MoverPlayer {
   // Use booleans to eliminate unreliable key triggers
   boolean right = false, left = false, up = false, down = false;
   float spd = 5;
+  float offset;
 
   PVector location;
 
@@ -11,50 +12,72 @@ class MoverPlayer {
   }
 
   void pressed() {
-    int k = key;
-    switch(k) {
-    case 'w': 
-      up = true; 
-    case 's': 
-      down = true;
-    case 'a': 
-      left = true; 
-    case 'd': 
-      right = true;
+    if (key == CODED) {
+      if (keyCode == UP) {
+        up = true;
+      } else if (keyCode == DOWN) {
+        down = true;
+      } else if (keyCode == LEFT) {
+        left = true;
+      } else if (keyCode == RIGHT) {
+        right = true;
+      }
     }
   }
 
   void released() {
-    int k = key;
-    switch(k) {
-    case 'w': 
-      up = false; 
-    case 's': 
-      down = false;
-    case 'a': 
-      left = false; 
-    case 'd': 
-      right = false;
+    if (key == CODED) {
+      if (keyCode == UP) {
+        up = false;
+      } else if (keyCode == DOWN) {
+        down = false;
+      } else if (keyCode == LEFT) {
+        left = false;
+      } else if (keyCode == RIGHT) {
+        right = false;
+      }
     }
   }
 
   void update() {
-    if (up) {
-      location.y -= spd;
-    } else if (down) {
-      location.y += spd;
-    } else if (left) {
-      location.x -= spd;
-    } else if (right) {
-      location.x += spd;
-    }
+    if (left) location.x -= spd;
+    else if (right) location.x += spd;
+
+    if (up) location.y -=spd;
+    else if (down) location.y += spd;
   }
 
   void run() {
     update();
+    checkEdges();
+  }
+
+  void checkEdges() {
+    PVector location = getMover();
+
+    if (location.x > width) {
+      location.x = width;
+      setMover(location);
+    }
+    if (location.x < 0) {
+      location.x = 0;
+      setMover(location);
+    }
+    if (location.y > height) {
+      location.y = height;
+      setMover(location);
+    }
+    if (location.y < 0) {
+      location.y = 0;
+      setMover(location);
+    }
   }
 
   PVector getMover() {
     return location.copy();
+  }
+
+  void setMover(PVector loc) {
+    location = loc.copy();
   }
 }
