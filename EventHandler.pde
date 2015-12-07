@@ -4,7 +4,7 @@ class EventHandler {
   }
 
   void run() {
-    if (random(20) < 0.5) {
+    if (random(50) < 0.5) {
       fd.spawnFood(random(width), random(height));
     }
   }
