@@ -52,7 +52,7 @@ class EventHandler extends Gui {
   };
 
   float[] hpEnemyValue = {
-    12, 16, 20, 35, 40, 60
+    6, 10, 12, 15, 19, 23
   };
 
   int foodEaten = 0;
