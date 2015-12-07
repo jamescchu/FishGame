@@ -56,6 +56,11 @@ class FishPlayer extends Fish {
   void ate() {
     eh.foodEaten++;
   }
+  
+  void eaten() {
+    setDead();
+    eh.gameOver = true;
+  }
 
   void run() {
     mode();

@@ -2,7 +2,7 @@ class EventHandler extends Gui {
   int incoming;
   int wave;
   boolean gameStart = false, gameOver = false;
-  
+
   int speedLevel = 0;
   float[] speedValue = {
     0.20, 0.28, 0.36, 0.44, 0.52, 0.6
@@ -34,7 +34,7 @@ class EventHandler extends Gui {
   int[] dmgCost = {
     5, 10, 15, 20, 25, 30
   };
-  
+
   int spawnLevel = 0;
   float[] spawnValue = {
     30, 27, 25, 21, 16, 10
@@ -42,7 +42,7 @@ class EventHandler extends Gui {
   int[] spawnCost = {
     5, 10, 15, 20, 25, 30
   };
-  
+
   float[] speedEnemyValue = {
     0.25, 0.32, 0.37, 0.44, 0.55, 0.65
   };
@@ -50,7 +50,7 @@ class EventHandler extends Gui {
   float[] sizeEnemyValue = {
     26, 22, 20, 16, 12, 10
   };
-  
+
   float[] hpEnemyValue = {
     12, 16, 20, 35, 40, 60
   };
@@ -58,31 +58,53 @@ class EventHandler extends Gui {
   int foodEaten = 0;
 
   EventHandler() {
-    incoming = 5400;
-    wave = 0;
+    spawnLevel = 4;
   }
 
   void run() {
+    if (random(eh.spawnValue[eh.spawnLevel]) < 0.5) {
+      fd.spawnFood(random(width), random(height));
+    }
+    if (!eh.gameStart) return;
     incoming--;
     if (incoming == 0) {
       eh.wave++;
       if (eh.wave > 5) eh.wave = 5;
       fh.spawnFishEnemy();
-      
+
       int timer = 3600;
       if (eh.wave >= 4) timer = 1800;
       incoming += timer;
     }
-    if (random(eh.spawnValue[eh.spawnLevel]) < 0.5) {
-      fd.spawnFood(random(width), random(height));
-    }
   }
-  
+
+  void resetGame() {
+    eh.gameOver = false;
+    fd.foods.clear();
+    fh.fishes.clear();
+    fh.spawnFishPlayer();
+    mp.reset();
+    speedLevel = 0;
+    sizeLevel = 0;
+    agileLevel = 0;
+    dmgLevel = 0;
+    spawnLevel = 0;
+    foodEaten = 0;
+    incoming = 5400;
+    wave = 0;
+  }
+
+  void startGame() {
+    eh.gameStart = true; 
+    resetGame();
+  }
+
   void hurt() {
     eh.hpEnemyValue[eh.wave] -= eh.dmgValue[eh.dmgLevel];
   }
-  
+
   void showTimer() {
+    if (!eh.gameStart) return;
     drawString("ENEMY INCOMING: " + incoming/60, 900, guiZone/2, colors.get("red"), 16);
   }
 }

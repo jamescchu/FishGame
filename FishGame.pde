@@ -17,7 +17,8 @@ MoverPlayer mp;
 EventHandler eh;
 Gui gui;
 
-PFont font;
+PFont fontL;
+PFont fontS;
 int currentMode = 1;
 boolean debug = false, click = false, pressed = false;
 int guiZone = 48;
@@ -26,8 +27,9 @@ void setup() {
   size(1280, 768, P2D); 
   //fullScreen();
   noStroke();
-  font = createFont("Helvetica", 16);
-  textFont(font);
+  fontL = createFont("Helvetica", 100);
+  fontS = createFont("Helvetica", 20);
+  textFont(fontL);
 
   // Initialize Box2D
   box2d = new Box2DProcessing(this);
@@ -43,8 +45,6 @@ void setup() {
   mp = new MoverPlayer();
   eh = new EventHandler();
   gui = new Gui();
-
-  fh.spawnFishPlayer();
 }
 
 void draw() {
@@ -62,18 +62,6 @@ void draw() {
   gui.display();
 
   if (debug) db.display();
-
-  fill(255);
-  textSize(14);
-  textAlign(BOTTOM, BOTTOM);
-  text("FPS: " + frameRate, 10, 68);
-  text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 88);
-  text("Size: " + eh.sizeValue[eh.sizeLevel], 10, 108);
-  text("Speed: " + eh.speedValue[eh.speedLevel], 10, 128);
-  text("Agile: " + eh.agileValue[eh.agileLevel], 10, 148);
-  text("Damage: " + eh.dmgValue[eh.dmgLevel], 10, 168);
-  text("SpawnRate: " + eh.spawnValue[eh.spawnLevel], 10, 188);
-  text("EnemyHP: " + eh.hpEnemyValue[eh.wave], 10, 208);
 }
 
 void keyPressed ()
@@ -93,6 +81,14 @@ void keyReleased ()
 }
 
 void mouseClicked() {
+  if (!eh.gameStart) { 
+    eh.startGame();
+    return;
+  }
+  if (eh.gameOver) { 
+    eh.resetGame();
+    return;
+  }
   for ( Fish f : fh.fishes) {
     f.clicked();
   }
@@ -125,7 +121,7 @@ void beginContact(Contact cp) {
   if (o1.getClass() == FishPlayer.class && o2.getClass() == FishEnemy.class) {
     Fish p1 = (FishPlayer) o1;
     Fish p2 = (FishEnemy) o2;
-    p1.setDead();
+    p1.eaten();
   }
 }
 

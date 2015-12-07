@@ -40,5 +40,16 @@ class Debug {
 
   void display() {
     drawMover();
+    fill(255);
+    textSize(14);
+    textAlign(BOTTOM, BOTTOM);
+    text("FPS: " + frameRate, 10, 68);
+    text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 88);
+    text("Size: " + eh.sizeValue[eh.sizeLevel], 10, 108);
+    text("Speed: " + eh.speedValue[eh.speedLevel], 10, 128);
+    text("Agile: " + eh.agileValue[eh.agileLevel], 10, 148);
+    text("Damage: " + eh.dmgValue[eh.dmgLevel], 10, 168);
+    text("SpawnRate: " + eh.spawnValue[eh.spawnLevel], 10, 188);
+    text("EnemyHP: " + eh.hpEnemyValue[eh.wave], 10, 208);
   }
 }

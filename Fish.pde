@@ -227,6 +227,9 @@ class Fish {
   
   void ate() {
   }
+  
+  void eaten() {
+  }
 
   PVector getLoc() {
     return location[0].copy();

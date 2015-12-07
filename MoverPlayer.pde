@@ -52,6 +52,10 @@ class MoverPlayer {
     update();
     checkEdges();
   }
+  
+  void reset() {
+    location.set(width/2, height/2);
+  }
 
   void checkEdges() {
     PVector location = getMover();
