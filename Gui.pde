@@ -15,9 +15,11 @@ class Gui {
 
   void display() {
     drawBase();
-    setUpgrades("SIZE", 500, 0);
-    setUpgrades("SPEED", 600, 1);
-    setUpgrades("AGILITY", 700, 2);
+    showFoodCount(600);
+    setUpgrades("SIZE LVL " + eh.sizeLevel, 50, 0);
+    setUpgrades("SPEED LVL " + eh.speedLevel, 200, 1);
+    setUpgrades("AGILITY LVL " + eh.agileLevel, 350, 2);
+    setUpgrades("DAMAGE LVL " + eh.dmgLevel, 350, 2);
     for (int i = 0; i < buttons.length; i++) {
       buttons[i].update();
     }
@@ -29,11 +31,15 @@ class Gui {
     fill(colors.get("orange"));
     rect(width/2, guiZone/2, width, guiZone);
   }
+  
+  void showFoodCount(int _xPos) {
+    drawString("Food Eaten " + eh.foodEaten, _xPos, guiZone/2 - 1, colors.get("white")); 
+  }
 
   void setUpgrades(String _type, int _xPos, int id) {
-    drawString(_type, _xPos, guiZone/2, colors.get("white")); 
+    drawString(_type, _xPos, guiZone/2 - 1, colors.get("white")); 
     //buttons.add( new GuiButton(_xPos + textWidth(_type) + 5, guiZone/2, _type));
-    buttons[id] = new GuiButton(_xPos + textWidth(_type) + 5, guiZone/2, _type);
+    buttons[id] = new GuiButton(_xPos + textWidth(_type) + 5, guiZone/2 + 1, _type);
   }
 
   // Utilities
@@ -53,7 +59,7 @@ class Gui {
 
   void drawCenteredString(String _string, float _xPos, float _yPos, color _color) {
     fill(_color);
-    textAlign(LEFT, CENTER);
+    textAlign(CENTER, CENTER);
     textSize(16);
     text(_string, _xPos/2, _yPos);
   }

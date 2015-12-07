@@ -29,21 +29,6 @@ class Fish {
     }
   };
 
-  int speedLevel = 0;
-  float[] speedValue = {
-    0.20, 0.28, 0.36, 0.44, 0.52, 0.6
-  };
-
-  int sizeLevel = 0;
-  float[] sizeValue = {
-    8, 12, 16, 18, 22, 26
-  };
-
-  int agileLevel = 0;
-  float[] agileValue = {
-    0.2, 0.3, 0.4, 0.8, 1.2, 2
-  };
-
   Fish() {
   }
 
@@ -86,7 +71,7 @@ class Fish {
 
     // Slow down if it's close to target
     if (currentDistance < 5) {
-      speed = map(currentDistance, 0, 5, 0, fh.speedValue[fh.speedLevel]);
+      speed = map(currentDistance, 0, 5, 0, eh.speedValue[eh.speedLevel]);
     }
   }
   
@@ -163,7 +148,7 @@ class Fish {
         Vec2 foodLoc = f.getFood();
 
         float dis = getFoodDistance();
-        if (dis < 300 && !isMaxSize) { // If within range
+        if (dis < 300) { // If within range
           speed = speedvar * 1.2;
           float strength = map(dis, 0, 300, 5, 1); // Map strength to distance
           seek(foodLoc, strength);
@@ -272,6 +257,9 @@ class Fish {
   }
 
   void grow() {
+  }
+  
+  void ate() {
   }
 
   PVector getLoc() {

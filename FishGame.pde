@@ -17,7 +17,7 @@ MoverPlayer mp;
 EventHandler eh;
 Gui gui;
 
-PImage rock;
+PFont font;
 int currentMode = 1;
 boolean debug = false, click = false, pressed = false;
 int guiZone = 48;
@@ -26,6 +26,8 @@ void setup() {
   size(1280, 768, P2D); 
   //fullScreen();
   noStroke();
+  font = createFont("Helvetica", 16);
+  textFont(font);
 
   // Initialize Box2D
   box2d = new Box2DProcessing(this);
@@ -66,9 +68,9 @@ void draw() {
   textAlign(BOTTOM, BOTTOM);
   text("FPS: " + frameRate, 10, 68);
   text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 88);
-  text("SizeLevel: " + fh.sizeLevel, 10, 108);
-  text("SpeedLevel: " + fh.speedLevel, 10, 128);
-  text("AgileLevel: " + fh.agileLevel, 10, 148);
+  text("SizeLevel: " + eh.sizeLevel, 10, 108);
+  text("SpeedLevel: " + eh.speedLevel, 10, 128);
+  text("AgileLevel: " + eh.agileLevel, 10, 148);
 }
 
 void keyPressed ()
@@ -107,7 +109,7 @@ void beginContact(Contact cp) {
   if (o1.getClass() == FishPlayer.class && o2.getClass() == FoodSmall.class) {
     Fish p1 = (FishPlayer) o1;
     Food p2 = (FoodSmall) o2;
-    p1.grow();
+    p1.ate();
     p2.eaten();
   }
 
@@ -122,7 +124,7 @@ void beginContact(Contact cp) {
     Fish p1 = (FishPlayer) o1;
     Fish p2 = (FishEnemy) o2;
     if (p2.fishSize > p1.fishSize) {
-      //p1.setDead();
+      p1.setDead();
     }
   }
 }

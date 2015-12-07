@@ -2,9 +2,9 @@ class FishPlayer extends Fish {
 
   FishPlayer() {
     // Need to define size first
-    fishSize = fh.sizeValue[fh.sizeLevel];
+    fishSize = eh.sizeValue[eh.sizeLevel];
     
-    speed = fh.speedValue[fh.speedLevel];
+    speed = eh.speedValue[eh.speedLevel];
 
     // Create Box2d body
     makeBody(width/2, height/2);
@@ -33,10 +33,10 @@ class FishPlayer extends Fish {
   void mode() {
     Vec2 location = box2d.coordPixelsToWorld(mp.getMover());
     
-    speed = fh.speedValue[fh.speedLevel];
-    fishSize = fh.sizeValue[fh.sizeLevel];
+    speed = eh.speedValue[eh.speedLevel];
+    fishSize = eh.sizeValue[eh.sizeLevel];
     body.getFixtureList().getShape().setRadius(box2d.scalarPixelsToWorld(fishSize / 2));
-    float agile = fh.agileValue[fh.agileLevel];
+    float agile = eh.agileValue[eh.agileLevel];
     steer(location, agile); 
   }
 
@@ -53,7 +53,8 @@ class FishPlayer extends Fish {
     super.display();
   }
 
-  void grow() {
+  void ate() {
+    eh.foodEaten++;
   }
 
   void run() {

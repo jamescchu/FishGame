@@ -12,7 +12,7 @@ class GuiButton extends Gui {
     yPos = _yPos-12;
     tag = _tag;
     size = 25;
-    enabled = true;
+    enabled = false;
     activated = false;
     bClicked = false;
   }
@@ -52,16 +52,20 @@ class GuiButton extends Gui {
     if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size) {
       switch(id) {
       case 0:
-        fh.sizeLevel++;
-        if (fh.sizeLevel > 5) fh.sizeLevel = 5;
+        eh.sizeLevel++;
+        if (eh.sizeLevel > 5) eh.sizeLevel = 5;
         break;
       case 1:
-        fh.speedLevel++;
-        if (fh.speedLevel > 5) fh.speedLevel = 5;
+        eh.speedLevel++;
+        if (eh.speedLevel > 5) eh.speedLevel = 5;
         break;
       case 2:
-        fh.agileLevel++;
-        if (fh.agileLevel > 5) fh.agileLevel = 5;
+        eh.agileLevel++;
+        if (eh.agileLevel > 5) eh.agileLevel = 5;
+        break;
+        case 3:
+        eh.dmgLevel++;
+        if (eh.dmgLevel > 5) eh.dmgLevel = 5;
         break;
       }
     }

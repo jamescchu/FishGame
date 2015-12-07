@@ -43,17 +43,15 @@ class FishEnemy extends Fish {
     }
     super.display();
   }
+  
+  void ate() {
+  }
 
   void grow() {
-    if (fishSize > maxSize) isMaxSize = true;
-    if (isMaxSize) return;
-    fishSize = fishSize + 0.5; 
-    fishLength = fishLength + 1;
   }
 
   void run() {
     // If there is food spawned, then run food mode
-
     mode(1);
     update();
     move();
