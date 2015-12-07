@@ -16,11 +16,10 @@ Utilities utl;
 MoverPlayer mp;
 EventHandler eh;
 Gui gui;
-GuiButton gb;
 
 PImage rock;
 int currentMode = 1;
-boolean debug = false, click = false, pressed = false;;
+boolean debug = false, click = false, pressed = false;
 int guiZone = 48;
 
 void setup() {
@@ -42,7 +41,6 @@ void setup() {
   mp = new MoverPlayer();
   eh = new EventHandler();
   gui = new Gui();
-  gb = new GuiButton();
 
   fh.spawnFishPlayer();
 }
@@ -58,7 +56,7 @@ void draw() {
 
   fd.run();
   fh.run();
-  
+
   gui.display();
 
   if (debug) db.display();
@@ -66,8 +64,11 @@ void draw() {
   fill(255);
   textSize(14);
   textAlign(BOTTOM, BOTTOM);
-  text("FPS: " + frameRate, 10, 20);
-  text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 40);
+  text("FPS: " + frameRate, 10, 68);
+  text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 88);
+  text("SizeLevel: " + fh.sizeLevel, 10, 108);
+  text("SpeedLevel: " + fh.speedLevel, 10, 128);
+  text("AgileLevel: " + fh.agileLevel, 10, 148);
 }
 
 void keyPressed ()
@@ -84,15 +85,11 @@ void keyReleased ()
 }
 
 void mouseClicked() {
-  click = !click; 
-}
-
-void mousePressed() {
-  pressed = true; 
-}
-
-void mouseReleased() {
-  pressed = false; 
+  for (int i = 0; i < gui.buttons.length; i++) {
+    if (gui.buttons[i].isPressed()) {
+      gui.buttons[i].click(i);
+    }
+  }
 }
 
 void beginContact(Contact cp) {

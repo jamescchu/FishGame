@@ -14,9 +14,6 @@ class Fish {
   float noiseStrength;
   float accStrength;
   float wandertheta;
-  float maxSize;
-  float minSize;
-  boolean isMaxSize;
   int fishLength;
   color randColor;
 
@@ -30,6 +27,21 @@ class Fish {
       put("orange", color(#FF8D04));
       put("white", color(#FFFAB0));
     }
+  };
+
+  int speedLevel = 0;
+  float[] speedValue = {
+    0.20, 0.28, 0.36, 0.44, 0.52, 0.6
+  };
+
+  int sizeLevel = 0;
+  float[] sizeValue = {
+    8, 12, 16, 18, 22, 26
+  };
+
+  int agileLevel = 0;
+  float[] agileValue = {
+    0.2, 0.3, 0.4, 0.8, 1.2, 2
   };
 
   Fish() {
@@ -68,15 +80,16 @@ class Fish {
 
     direction.addLocal(force);
     direction.normalize();
+    ;
 
     float currentDistance = dist(loc.x, loc.y, location.x, location.y);
 
     // Slow down if it's close to target
-    if (currentDistance < 10) {
-      speed = map(currentDistance, 0, 10, 0, speedvar);
-    } else speed = speedvar;
+    if (currentDistance < 5) {
+      speed = map(currentDistance, 0, 5, 0, fh.speedValue[fh.speedLevel]);
+    }
   }
-
+  
   void createNoise() {
     Vec2 location = getVecHead();
 

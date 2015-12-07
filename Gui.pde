@@ -1,4 +1,5 @@
 class Gui {
+  GuiButton[] buttons = new GuiButton[3];
   HashMap < String, Integer > colors = new HashMap < String, Integer > () {
     {
       put("orange", color(#FF8D04));
@@ -14,7 +15,12 @@ class Gui {
 
   void display() {
     drawBase();
-    drawUpgrades("SPEED", 500);
+    setUpgrades("SIZE", 500, 0);
+    setUpgrades("SPEED", 600, 1);
+    setUpgrades("AGILITY", 700, 2);
+    for (int i = 0; i < buttons.length; i++) {
+      buttons[i].update();
+    }
   }
 
   void drawBase() {
@@ -24,10 +30,10 @@ class Gui {
     rect(width/2, guiZone/2, width, guiZone);
   }
 
-  void drawUpgrades(String _type, int _xPos) {
+  void setUpgrades(String _type, int _xPos, int id) {
     drawString(_type, _xPos, guiZone/2, colors.get("white")); 
-    gb.buttons.add(new GuiButton(_xPos + textWidth(_type) + 5, guiZone/2));
-    gb.run();
+    //buttons.add( new GuiButton(_xPos + textWidth(_type) + 5, guiZone/2, _type));
+    buttons[id] = new GuiButton(_xPos + textWidth(_type) + 5, guiZone/2, _type);
   }
 
   // Utilities

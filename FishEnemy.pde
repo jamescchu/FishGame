@@ -2,8 +2,7 @@ class FishEnemy extends Fish {
 
   FishEnemy() {
     // Need to define size first
-    fishSize = random(13, 22);
-    maxSize = 26;
+    fishSize = 30;
 
     // Create Box2d body
     makeBody(random(width), random(height));

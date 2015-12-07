@@ -1,21 +1,24 @@
 class GuiButton extends Gui {
-  ArrayList < GuiButton > buttons = new ArrayList < GuiButton > ();
-  boolean enabled, activated, buttonClicked = false;
+  GuiButton[] buttons = new GuiButton[5];
+  boolean enabled, activated, bClicked;
   float xPos, yPos;
   int size;
-  String text;
+  String tag;
 
   final int mDefault = 0, mPressed = 1, mHover = 2, mDisabled = 3;
 
-  GuiButton(float _xPos, float _yPos) {
+  GuiButton(float _xPos, float _yPos, String _tag) {
     xPos = _xPos;
     yPos = _yPos-12;
+    tag = _tag;
     size = 25;
     enabled = true;
+    activated = false;
+    bClicked = false;
   }
 
   GuiButton() {
-    this(0, 0);
+    this(0, 0, "");
   }
 
   void drawButton(int action) {
@@ -38,35 +41,42 @@ class GuiButton extends Gui {
     drawButtonString("+", xPos, yPos, textColor);
   }
 
-  void update() {
-    if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size) {
-      if (pressed) {
-        if (enabled) { 
-          drawButton(mPressed); 
-          activated = true;
-        } else {
-          drawButton(mDisabled);
-          activated = false;
-        }
-      } else {
-        drawButton(mHover); 
-        activated = false;
-      }
-    } else {
-      drawButton(mDefault);
-      activated = false;
+  boolean isPressed() {
+    if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size && enabled) {
+      return true;
     }
-    activated = false;
+    return false;
   }
 
-  void run() {
-    Iterator < GuiButton > it = buttons.iterator();
-    while (it.hasNext()) {
-      GuiButton g = it.next();
-      g.update();
-      if (g.activated) {
-        println(g.activated);
+  void click(int id) {
+    if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size) {
+      switch(id) {
+      case 0:
+        fh.sizeLevel++;
+        if (fh.sizeLevel > 5) fh.sizeLevel = 5;
+        break;
+      case 1:
+        fh.speedLevel++;
+        if (fh.speedLevel > 5) fh.speedLevel = 5;
+        break;
+      case 2:
+        fh.agileLevel++;
+        if (fh.agileLevel > 5) fh.agileLevel = 5;
+        break;
       }
+    }
+  }
+
+  void update() {
+    if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size && enabled) {
+      if (pressed) {
+        drawButton(mPressed);
+      } else 
+      drawButton(mHover);
+    } else if (!enabled)
+      drawButton(mDisabled);
+    else {
+      drawButton(mDefault);
     }
   }
 }
