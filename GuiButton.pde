@@ -1,24 +1,19 @@
 class GuiButton extends Gui {
   GuiButton[] buttons = new GuiButton[5];
-  boolean enabled, activated, bClicked;
+  boolean enabled = true;
   float xPos, yPos;
   int size;
-  String tag;
 
   final int mDefault = 0, mPressed = 1, mHover = 2, mDisabled = 3;
 
-  GuiButton(float _xPos, float _yPos, String _tag) {
+  GuiButton(float _xPos, float _yPos) {
     xPos = _xPos;
     yPos = _yPos-12;
-    tag = _tag;
     size = 25;
-    enabled = false;
-    activated = false;
-    bClicked = false;
   }
 
   GuiButton() {
-    this(0, 0, "");
+    this(0, 0);
   }
 
   void drawButton(int action) {
@@ -41,6 +36,27 @@ class GuiButton extends Gui {
     drawButtonString("+", xPos, yPos, textColor);
   }
 
+  void affordable(int id) {
+    switch(id) {
+    case 0:
+      if (eh.foodEaten >= eh.sizeCost[eh.sizeLevel]) enabled = true;
+      else enabled = false;
+      break;
+    case 1:
+      if (eh.foodEaten >= eh.speedCost[eh.speedLevel]) enabled = true;
+      else enabled = false;
+      break;
+    case 2:
+      if (eh.foodEaten >= eh.agileCost[eh.agileLevel]) enabled = true;
+      else enabled = false;
+      break;
+    case 3:
+      if (eh.foodEaten >= eh.dmgCost[eh.dmgLevel]) enabled = true;
+      else enabled = false;
+      break;
+    }
+  }
+
   boolean isPressed() {
     if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size && enabled) {
       return true;
@@ -52,18 +68,22 @@ class GuiButton extends Gui {
     if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size) {
       switch(id) {
       case 0:
+        eh.foodEaten -= eh.sizeCost[eh.sizeLevel];
         eh.sizeLevel++;
         if (eh.sizeLevel > 5) eh.sizeLevel = 5;
         break;
       case 1:
+        eh.foodEaten -= eh.speedCost[eh.speedLevel];
         eh.speedLevel++;
         if (eh.speedLevel > 5) eh.speedLevel = 5;
         break;
       case 2:
+        eh.foodEaten -= eh.agileCost[eh.agileLevel];
         eh.agileLevel++;
         if (eh.agileLevel > 5) eh.agileLevel = 5;
         break;
-        case 3:
+      case 3:
+        eh.foodEaten -= eh.dmgCost[eh.dmgLevel];
         eh.dmgLevel++;
         if (eh.dmgLevel > 5) eh.dmgLevel = 5;
         break;
