@@ -30,7 +30,7 @@ class FishPlayer extends Fish {
     }
   }
   
-  void mode() {
+  void mode() {  
     Vec2 location = box2d.coordPixelsToWorld(mp.getMover());
     
     speed = eh.speedValue[eh.speedLevel];
@@ -59,9 +59,12 @@ class FishPlayer extends Fish {
 
   void run() {
     mode();
-    update();
     move();
     display();
     checkEdges();
+  }
+  
+  Vec2 getLocation() {
+    return fh.getVecHead(); 
   }
 }

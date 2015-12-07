@@ -126,6 +126,10 @@ class Fish {
   void spawnFishPlayer() {
     fishes.add(new FishPlayer());
   }
+  
+  void spawnFishEnemy() {
+    fishes.add(new FishEnemy());
+  }
 
   void run() {
     // Itterate through ArrayList
@@ -140,44 +144,6 @@ class Fish {
   }
 
   void mode(int type) {
-    Vec2 mouseWorld = box2d.coordPixelsToWorld(mouseX, mouseY);
-    switch (type) {
-    case 0:
-      // Food
-      for (Food f : fd.foods) {
-        Vec2 foodLoc = f.getFood();
-
-        float dis = getFoodDistance();
-        if (dis < 300) { // If within range
-          speed = speedvar * 1.2;
-          float strength = map(dis, 0, 300, 5, 1); // Map strength to distance
-          seek(foodLoc, strength);
-        } else { // Revert to normal
-          mode(currentMode);
-        }
-      }
-      break;
-    case 1:
-      // Noise
-      speed = speedvar;
-      createNoise();
-      break;
-    case 2:
-      // Wander
-      speed = speedvar * 0.7;
-      wander();
-      break;
-    case 3:
-      // Seek
-      speed = speedvar * 1.05;
-      seek(mouseWorld);
-      break;
-    case 4:
-      // Steer
-      speed = speedvar * 1.05;
-      steer(mouseWorld);
-      break;
-    }
   }
 
   void checkEdges() {
@@ -185,19 +151,19 @@ class Fish {
     Vec2 location = box2d.coordWorldToPixels(getVecHead());
     float size = getSize(); // Get size of fish head
 
-    if (location.x - size / 2 > width) {
+    if (location.x - size > width) {
       location.x = width - size / 2;
       setVecHead(location); // Teleport to opposite side
     }
-    if (location.x + size / 2 < 0) {
+    if (location.x + size < 0) {
       location.x = size / 2;
       setVecHead(location);
     }
-    if (location.y - size / 2 > height) {
+    if (location.y - size > height) {
       location.y = height - size / 2;
       setVecHead(location);
     }
-    if (location.y + size / 2 < guiZone) {
+    if (location.y + size < guiZone) {
       location.y = guiZone + size / 2;
       setVecHead(location);
     }
@@ -256,7 +222,7 @@ class Fish {
     isDead = true;
   }
 
-  void grow() {
+  void clicked() {
   }
   
   void ate() {

@@ -71,12 +71,18 @@ void draw() {
   text("Size: " + eh.sizeValue[eh.sizeLevel], 10, 108);
   text("Speed: " + eh.speedValue[eh.speedLevel], 10, 128);
   text("Agile: " + eh.agileValue[eh.agileLevel], 10, 148);
+  text("Damage: " + eh.dmgValue[eh.dmgLevel], 10, 168);
+  text("SpawnRate: " + eh.spawnValue[eh.spawnLevel], 10, 188);
+  text("EnemyHP: " + eh.hpEnemyValue[eh.wave], 10, 208);
 }
 
 void keyPressed ()
 {
   if (key == 'l') {
     debug = !debug;
+  }
+  if (key == 'k' && debug) {
+    eh.foodEaten++;
   }
   mp.pressed();
 }
@@ -87,6 +93,9 @@ void keyReleased ()
 }
 
 void mouseClicked() {
+  for ( Fish f : fh.fishes) {
+    f.clicked();
+  }
   for (int i = 0; i < gui.buttons.length; i++) {
     if (gui.buttons[i].isPressed()) {
       gui.buttons[i].click(i);
@@ -113,19 +122,10 @@ void beginContact(Contact cp) {
     p2.eaten();
   }
 
-  if (o1.getClass() == FishEnemy.class && o2.getClass() == FoodSmall.class) {
-    Fish p1 = (FishEnemy) o1;
-    Food p2 = (FoodSmall) o2;
-    p1.grow();
-    p2.eaten();
-  }
-
   if (o1.getClass() == FishPlayer.class && o2.getClass() == FishEnemy.class) {
     Fish p1 = (FishPlayer) o1;
     Fish p2 = (FishEnemy) o2;
-    if (p2.fishSize > p1.fishSize) {
-      p1.setDead();
-    }
+    p1.setDead();
   }
 }
 

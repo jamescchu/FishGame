@@ -39,19 +39,29 @@ class GuiButton extends Gui {
   void affordable(int id) {
     switch(id) {
     case 0:
-      if (eh.foodEaten >= eh.sizeCost[eh.sizeLevel]) enabled = true;
+      if (eh.foodEaten >= eh.sizeCost[eh.sizeLevel] && eh.sizeLevel < 5) enabled = true;
+      else if (eh.sizeLevel >= 5)
+        enabled = false;
       else enabled = false;
       break;
     case 1:
-      if (eh.foodEaten >= eh.speedCost[eh.speedLevel]) enabled = true;
+      if (eh.foodEaten >= eh.speedCost[eh.speedLevel] && eh.speedLevel < 5) enabled = true;
+      else if (eh.speedLevel >= 5)
+        enabled = false;
       else enabled = false;
       break;
     case 2:
-      if (eh.foodEaten >= eh.agileCost[eh.agileLevel]) enabled = true;
+      if (eh.foodEaten >= eh.agileCost[eh.agileLevel] && eh.agileLevel < 5) enabled = true;
+      else if (eh.agileLevel >= 5)
+        enabled = false;
       else enabled = false;
       break;
     case 3:
-      if (eh.foodEaten >= eh.dmgCost[eh.dmgLevel]) enabled = true;
+      if (eh.foodEaten >= eh.dmgCost[eh.dmgLevel] && eh.dmgLevel < 5) enabled = true;
+      else enabled = false;
+      break;
+    case 4:
+      if (eh.foodEaten >= eh.spawnCost[eh.spawnLevel] && eh.spawnLevel < 5) enabled = true;
       else enabled = false;
       break;
     }
@@ -65,7 +75,7 @@ class GuiButton extends Gui {
   }
 
   void click(int id) {
-    if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size) {
+    if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size && enabled) {
       switch(id) {
       case 0:
         eh.foodEaten -= eh.sizeCost[eh.sizeLevel];
@@ -86,6 +96,11 @@ class GuiButton extends Gui {
         eh.foodEaten -= eh.dmgCost[eh.dmgLevel];
         eh.dmgLevel++;
         if (eh.dmgLevel > 5) eh.dmgLevel = 5;
+        break;
+      case 4:
+        eh.foodEaten -= eh.spawnCost[eh.spawnLevel];
+        eh.spawnLevel++;
+        if (eh.spawnLevel > 5) eh.spawnLevel = 5;
         break;
       }
     }

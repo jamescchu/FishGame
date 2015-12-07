@@ -1,5 +1,7 @@
-class EventHandler {
-  int counter;
+class EventHandler extends Gui {
+  int incoming;
+  int wave;
+  boolean gameStart = false, gameOver = false;
   
   int speedLevel = 0;
   float[] speedValue = {
@@ -19,7 +21,7 @@ class EventHandler {
 
   int agileLevel = 0;
   float[] agileValue = {
-    0.3, 0.4, 0.5, 0.8, 1.2, 2
+    0.3, 0.5, 0.6, 0.8, 1.2, 2
   };
   int[] agileCost = {
     5, 10, 15, 20, 25, 30
@@ -32,17 +34,55 @@ class EventHandler {
   int[] dmgCost = {
     5, 10, 15, 20, 25, 30
   };
+  
+  int spawnLevel = 0;
+  float[] spawnValue = {
+    30, 27, 25, 21, 16, 10
+  };
+  int[] spawnCost = {
+    5, 10, 15, 20, 25, 30
+  };
+  
+  float[] speedEnemyValue = {
+    0.25, 0.32, 0.37, 0.44, 0.55, 0.65
+  };
+
+  float[] sizeEnemyValue = {
+    26, 22, 20, 16, 12, 10
+  };
+  
+  float[] hpEnemyValue = {
+    12, 16, 20, 35, 40, 60
+  };
 
   int foodEaten = 0;
 
   EventHandler() {
-    counter = 0;
+    incoming = 5400;
+    wave = 0;
   }
 
   void run() {
-    counter++;
-    if (random(30) < 0.5) {
+    incoming--;
+    if (incoming == 0) {
+      eh.wave++;
+      if (eh.wave > 5) eh.wave = 5;
+      fh.spawnFishEnemy();
+      
+      int timer = 3600;
+      if (eh.wave >= 4) timer = 1800;
+      incoming += timer;
+    }
+    if (random(eh.spawnValue[eh.spawnLevel]) < 0.5) {
       fd.spawnFood(random(width), random(height));
     }
+  }
+  
+  void hurt() {
+    eh.hpEnemyValue[eh.wave] -= eh.dmgValue[eh.dmgLevel];
+  }
+  
+  void showTimer() {
+    drawString("ENEMY INCOMING: " + incoming/60, 900, guiZone/2, colors.get("red"), 16);
   }
 }

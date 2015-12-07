@@ -2,7 +2,7 @@ class MoverPlayer {
 
   // Use booleans to eliminate unreliable key triggers
   boolean right = false, left = false, up = false, down = false;
-  float spd = 5;
+  float spd;
   float offset;
 
   PVector location;
@@ -40,6 +40,7 @@ class MoverPlayer {
   }
 
   void update() {
+    spd = eh.speedValue[eh.speedLevel] * 10;
     if (left) location.x -= spd;
     else if (right) location.x += spd;
 
