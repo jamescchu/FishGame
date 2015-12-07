@@ -188,19 +188,19 @@ class Fish {
     float size = getSize(); // Get size of fish head
 
     if (location.x - size / 2 > width) {
-      location.x = 0 - size / 2;
+      location.x = width - size / 2;
       setVecHead(location); // Teleport to opposite side
     }
     if (location.x + size / 2 < 0) {
-      location.x = width + size / 2;
+      location.x = size / 2;
       setVecHead(location);
     }
     if (location.y - size / 2 > height) {
-      location.y = 0 - size / 2;
+      location.y = height - size / 2;
       setVecHead(location);
     }
-    if (location.y + size / 2 < 0) {
-      location.y = height + size / 2;
+    if (location.y + size / 2 < guiZone) {
+      location.y = guiZone + size / 2;
       setVecHead(location);
     }
   }

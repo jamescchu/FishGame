@@ -15,13 +15,16 @@ Debug db;
 Utilities utl;
 MoverPlayer mp;
 EventHandler eh;
+Gui gui;
+GuiButton gb;
 
 PImage rock;
 int currentMode = 1;
-boolean debug = false;
+boolean debug = false, click = false, pressed = false;;
+int guiZone = 48;
 
 void setup() {
-  size(1024, 768, P2D); 
+  size(1280, 768, P2D); 
   //fullScreen();
   noStroke();
 
@@ -38,6 +41,8 @@ void setup() {
   utl = new Utilities();
   mp = new MoverPlayer();
   eh = new EventHandler();
+  gui = new Gui();
+  gb = new GuiButton();
 
   fh.spawnFishPlayer();
 }
@@ -53,10 +58,14 @@ void draw() {
 
   fd.run();
   fh.run();
+  
+  gui.display();
 
   if (debug) db.display();
 
   fill(255);
+  textSize(14);
+  textAlign(BOTTOM, BOTTOM);
   text("FPS: " + frameRate, 10, 20);
   text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 40);
 }
@@ -72,6 +81,18 @@ void keyPressed ()
 void keyReleased ()
 {
   mp.released();
+}
+
+void mouseClicked() {
+  click = !click; 
+}
+
+void mousePressed() {
+  pressed = true; 
+}
+
+void mouseReleased() {
+  pressed = false; 
 }
 
 void beginContact(Contact cp) {

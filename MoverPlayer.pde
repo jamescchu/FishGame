@@ -67,8 +67,8 @@ class MoverPlayer {
       location.y = height;
       setMover(location);
     }
-    if (location.y < 0) {
-      location.y = 0;
+    if (location.y < guiZone) {
+      location.y = guiZone;
       setMover(location);
     }
   }

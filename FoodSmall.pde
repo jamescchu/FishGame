@@ -2,7 +2,7 @@ class FoodSmall extends Food {
 
   FoodSmall(Vec2 loc) {
     super(loc);
-    foodSize = random(5,10);
+    foodSize = random(6,9);
 
     makeBody(loc.x, loc.y);
     body.setUserData(this);
