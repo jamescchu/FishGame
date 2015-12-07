@@ -99,6 +99,14 @@ void mouseClicked() {
   }
 }
 
+void mousePressed() {
+  pressed = true;
+}
+
+void mouseReleased() {
+  pressed = false;
+}
+
 void beginContact(Contact cp) {
   // Get both fixtures
   Fixture f1 = cp.getFixtureA();
