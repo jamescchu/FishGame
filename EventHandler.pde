@@ -15,17 +15,17 @@ class EventHandler extends Gui {
       fd.spawnFood(random(width), random(height));
     }
     if (!eh.gameStart) return;
-    if (incoming <= 0 && eh.wave != 5) {
+    if (incoming <= 0 && eh.wave != 6) {
       eh.wave++;
 
       spawnEnemy();
 
       int timer = 3600;
-      if (eh.wave >= 4) timer = 1800;
-      incoming += timer;
+      if (eh.wave >= 4) timer = 2700;
+      incoming = timer;
     }
-    if (eh.wave >= 5) { 
-      eh.wave = 5;
+    if (eh.wave >= 6) { 
+      eh.wave = 6;
       incoming = 0;
       eh.waitTimer++;
     } else incoming--;
@@ -36,7 +36,7 @@ class EventHandler extends Gui {
   void spawnEnemy() {
     PVector spawn = new PVector(random(width), random(height));
     PVector victim = fh.fishes.get(0).getLoc(); // super unstable
-    if (spawn.dist(spawn, victim) >= 300) {
+    if (PVector.dist(spawn, victim) >= 300) {
       fh.spawnFishEnemy(spawn);
     } else
       spawnEnemy();

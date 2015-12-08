@@ -23,8 +23,8 @@ boolean debug = false, click = false, pressed = false;
 int guiZone = 48;
 
 void setup() {
-  size(1280, 768, P2D); 
-  //fullScreen();
+  //size(1280, 768, P2D); 
+  fullScreen(P2D);
   noStroke();
   fontL = createFont("Helvetica", 100);
   fontS = createFont("Helvetica", 20);

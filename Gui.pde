@@ -74,6 +74,7 @@ class Gui {
 
   void showGameOver() { 
     eh.waitTimer++;
+    noStroke();
     fill(0, 100);
     rectMode(CORNERS);
     rect(0, 0, width, height);
@@ -87,6 +88,7 @@ class Gui {
 
   void showGameWin() { 
     eh.waitTimer++;
+    noStroke();
     fill(0, 100);
     rectMode(CORNERS);
     rect(0, 0, width, height);
@@ -100,6 +102,7 @@ class Gui {
 
   void showInstructions() { 
     fill(0, 100);
+    noStroke();
     rectMode(CORNERS);
     rect(0, 0, width, height);
     textFont(fontL);

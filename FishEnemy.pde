@@ -59,6 +59,9 @@ class FishEnemy extends Fish {
     float dis = dist(location[location.length-1].x, location[location.length-1].y, mouseX, mouseY);
     if (dis <= fishSize + 2) {
       eh.hurt();
+      noStroke();
+      fill(colors.get("white"));
+      ellipse(mouseX, mouseY, 10, 10);
     }
   }
 
