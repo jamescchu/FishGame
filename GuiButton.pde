@@ -39,29 +39,29 @@ class GuiButton extends Gui {
   void affordable(int id) {
     switch(id) {
     case 0:
-      if (eh.foodEaten >= eh.sizeCost[eh.sizeLevel] && eh.sizeLevel < 5) enabled = true;
-      else if (eh.sizeLevel >= 5)
+      if ( eh.foodEaten >= sizeCost[sizeLevel] && sizeLevel < 5) enabled = true;
+      else if (sizeLevel >= 5)
         enabled = false;
       else enabled = false;
       break;
     case 1:
-      if (eh.foodEaten >= eh.speedCost[eh.speedLevel] && eh.speedLevel < 5) enabled = true;
-      else if (eh.speedLevel >= 5)
+      if ( eh.foodEaten >=  speedCost[ speedLevel] &&  speedLevel < 5) enabled = true;
+      else if ( speedLevel >= 5)
         enabled = false;
       else enabled = false;
       break;
     case 2:
-      if (eh.foodEaten >= eh.agileCost[eh.agileLevel] && eh.agileLevel < 5) enabled = true;
-      else if (eh.agileLevel >= 5)
+      if ( eh.foodEaten >=  agileCost[ agileLevel] &&  agileLevel < 5) enabled = true;
+      else if ( agileLevel >= 5)
         enabled = false;
       else enabled = false;
       break;
     case 3:
-      if (eh.foodEaten >= eh.dmgCost[eh.dmgLevel] && eh.dmgLevel < 5) enabled = true;
+      if ( eh.foodEaten >=  dmgCost[ dmgLevel] &&  dmgLevel < 5) enabled = true;
       else enabled = false;
       break;
     case 4:
-      if (eh.foodEaten >= eh.spawnCost[eh.spawnLevel] && eh.spawnLevel < 5) enabled = true;
+      if ( eh.foodEaten >=  spawnCost[ spawnLevel] &&  spawnLevel < 5) enabled = true;
       else enabled = false;
       break;
     }
@@ -78,29 +78,29 @@ class GuiButton extends Gui {
     if (mouseX > xPos && mouseX < xPos+size && mouseY >  yPos && mouseY < yPos+size && enabled) {
       switch(id) {
       case 0:
-        eh.foodEaten -= eh.sizeCost[eh.sizeLevel];
-        eh.sizeLevel++;
-        if (eh.sizeLevel > 5) eh.sizeLevel = 5;
+         eh.foodEaten -=  sizeCost[ sizeLevel];
+         sizeLevel++;
+        if ( sizeLevel > 5)  sizeLevel = 5;
         break;
       case 1:
-        eh.foodEaten -= eh.speedCost[eh.speedLevel];
-        eh.speedLevel++;
-        if (eh.speedLevel > 5) eh.speedLevel = 5;
+         eh.foodEaten -=  speedCost[ speedLevel];
+         speedLevel++;
+        if ( speedLevel > 5)  speedLevel = 5;
         break;
       case 2:
-        eh.foodEaten -= eh.agileCost[eh.agileLevel];
-        eh.agileLevel++;
-        if (eh.agileLevel > 5) eh.agileLevel = 5;
+         eh.foodEaten -=  agileCost[ agileLevel];
+         agileLevel++;
+        if ( agileLevel > 5)  agileLevel = 5;
         break;
       case 3:
-        eh.foodEaten -= eh.dmgCost[eh.dmgLevel];
-        eh.dmgLevel++;
-        if (eh.dmgLevel > 5) eh.dmgLevel = 5;
+         eh.foodEaten -=  dmgCost[ dmgLevel];
+         dmgLevel++;
+        if ( dmgLevel > 5)  dmgLevel = 5;
         break;
       case 4:
-        eh.foodEaten -= eh.spawnCost[eh.spawnLevel];
-        eh.spawnLevel++;
-        if (eh.spawnLevel > 5) eh.spawnLevel = 5;
+         eh.foodEaten -=  spawnCost[ spawnLevel];
+         spawnLevel++;
+        if ( spawnLevel > 5) spawnLevel = 5;
         break;
       }
     }

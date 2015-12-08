@@ -71,10 +71,10 @@ class Fish {
 
     // Slow down if it's close to target
     if (currentDistance < 5) {
-      speed = map(currentDistance, 0, 5, 0, eh.speedValue[eh.speedLevel]);
+      speed = map(currentDistance, 0, 5, 0, speedValue[speedLevel]);
     }
   }
-  
+
   void createNoise() {
     Vec2 location = getVecHead();
 
@@ -84,29 +84,6 @@ class Fish {
     acceleration.mulLocal(accStrength);
     direction.addLocal(acceleration);
     direction.normalize();
-  }
-
-  // Based on Reynold's Wander behavior
-  void wander() {
-    Vec2 location = getVecHead();
-
-    float wanderR = 20; // Radius for "wander circle"
-    float wanderD = 10; // Distance for "wander circle"
-    float change = 0.3;
-    wandertheta += random(-change, change); // Randomly change wander theta
-
-    Vec2 circleloc = direction.clone();
-    circleloc.normalize(); // Normalize to get heading
-    circleloc.mulLocal(wanderD); // Multiply by distance
-    circleloc.addLocal(location); // Make it relative to boid's location
-
-    float h = body.getAngle(); // We need to know the heading to offset wandertheta
-
-    Vec2 circleOffSet = new Vec2(wanderR * cos(wandertheta + h), wanderR * sin(wandertheta + h));
-    Vec2 target = circleloc.add(circleOffSet);
-    seek(target, 0.2);
-
-    if (debug) db.drawWanderDebug(location, circleloc, target, wanderR);
   }
 
   void update() {
@@ -126,9 +103,9 @@ class Fish {
   void spawnFishPlayer() {
     fishes.add(new FishPlayer());
   }
-  
-  void spawnFishEnemy() {
-    fishes.add(new FishEnemy());
+
+  void spawnFishEnemy(PVector spawn) {
+    fishes.add(new FishEnemy(spawn));
   }
 
   void run() {
@@ -224,11 +201,11 @@ class Fish {
 
   void clicked() {
   }
-  
+
   void ate() {
   }
-  
-  void eaten() {
+
+  void lost() {
   }
 
   PVector getLoc() {

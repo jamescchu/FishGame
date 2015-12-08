@@ -12,7 +12,6 @@ Box2DProcessing box2d;
 Fish fh;
 Food fd;
 Debug db;
-Utilities utl;
 MoverPlayer mp;
 EventHandler eh;
 Gui gui;
@@ -41,7 +40,6 @@ void setup() {
   fh = new Fish();
   fd = new Food();
   db = new Debug();
-  utl = new Utilities();
   mp = new MoverPlayer();
   eh = new EventHandler();
   gui = new Gui();
@@ -76,6 +74,8 @@ void keyPressed ()
       db.debugEndGame();
     } else if (key == 'p') {
       db.debugSpawnEnemy();
+    } else if (key == 'i') {
+      eh.incoming = 360;
     }
   }
   mp.pressed();
@@ -91,7 +91,8 @@ void mouseClicked() {
     eh.startGame();
     return;
   }
-  if (eh.gameOver && eh.waitTimer >= eh.waitAmount) { 
+  if ((eh.gameOver && eh.waitTimer >= eh.waitAmount) || 
+    (eh.gameWin && eh.waitTimer >= eh.waitAmount * 2)) { 
     eh.resetGame();
     return;
   } else if (eh.gameOver) return;
@@ -134,8 +135,7 @@ void beginContact(Contact cp) {
 
   if (o1.getClass() == FishPlayer.class && o2.getClass() == FishEnemy.class) {
     Fish p1 = (FishPlayer) o1;
-    Fish p2 = (FishEnemy) o2;
-    p1.eaten();
+    p1.lost();
   }
 }
 

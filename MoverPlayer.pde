@@ -40,7 +40,7 @@ class MoverPlayer {
   }
 
   void update() {
-    spd = eh.speedValue[eh.speedLevel] * 10;
+    spd = speedValue[speedLevel] * 10;
     if (left) location.x -= spd;
     else if (right) location.x += spd;
 

@@ -1,11 +1,11 @@
 class FishEnemy extends Fish {
 
-  FishEnemy() {
+  FishEnemy(PVector spawn) {
     // Need to define size first
     fishSize = 30;
 
     // Create Box2d body
-    makeBody(random(width), random(height));
+    makeBody(spawn.x, spawn.y);
     body.setUserData(this);
 
     randColor = colors.get("gold");
@@ -31,12 +31,15 @@ class FishEnemy extends Fish {
   }
 
   void mode() {
-    Vec2 location = fh.fishes.get(0).getVecHead();
+    if (!eh.gameOver) {
+      Vec2 location = fh.fishes.get(0).getVecHead();
 
-    speed = eh.speedEnemyValue[eh.wave];
-    fishSize = eh.sizeEnemyValue[eh.wave];
-    body.getFixtureList().getShape().setRadius(box2d.scalarPixelsToWorld(fishSize / 2));
-    seek(location, 2);
+      speed = speedEnemyValue[eh.wave];
+      fishSize = sizeEnemyValue[eh.wave];
+      body.getFixtureList().getShape().setRadius(box2d.scalarPixelsToWorld(fishSize / 2));
+      seek(location, 0.3);
+    } else
+      createNoise();
   }
 
   void display() {
@@ -51,10 +54,10 @@ class FishEnemy extends Fish {
     }
     super.display();
   }
-  
+
   void clicked() {
     float dis = dist(location[location.length-1].x, location[location.length-1].y, mouseX, mouseY);
-    if (dis <= fishSize + 2){
+    if (dis <= fishSize + 2) {
       eh.hurt();
     }
   }
@@ -66,8 +69,8 @@ class FishEnemy extends Fish {
   }
 
   void run() {
-    if (eh.hpEnemyValue[eh.wave] <= 0) {
-      setDead(); 
+    if (hpEnemyValue[eh.wave] <= 0) {
+      setDead();
     }
     mode();
     update();

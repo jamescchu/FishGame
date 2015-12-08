@@ -45,12 +45,13 @@ class Debug {
     textAlign(BOTTOM, BOTTOM);
     text("FPS: " + frameRate, 10, 68);
     text("Objects: " + (fh.fishes.size() + fd.foods.size()), 10, 88);
-    text("Size: " + eh.sizeValue[eh.sizeLevel], 10, 108);
-    text("Speed: " + eh.speedValue[eh.speedLevel], 10, 128);
-    text("Agile: " + eh.agileValue[eh.agileLevel], 10, 148);
-    text("Damage: " + eh.dmgValue[eh.dmgLevel], 10, 168);
-    text("SpawnRate: " + eh.spawnValue[eh.spawnLevel], 10, 188);
-    text("EnemyHP: " + eh.hpEnemyValue[eh.wave], 10, 208);
+    text("Size: " + sizeValue[sizeLevel], 10, 108);
+    text("Speed: " + speedValue[speedLevel], 10, 128);
+    text("Agile: " + agileValue[agileLevel], 10, 148);
+    text("Damage: " + dmgValue[dmgLevel], 10, 168);
+    text("SpawnRate: " + spawnValue[spawnLevel], 10, 188);
+    text("EnemyHP: " + hpEnemyValue[eh.wave], 10, 208);
+    text("IncomingTimer: " + eh.incoming, 10, 228);
   }
   
   void debugEndGame() {
@@ -58,6 +59,6 @@ class Debug {
   }
   
   void debugSpawnEnemy() {
-    eh.incoming = 0;
+    eh.spawnEnemy();
   }
 }
