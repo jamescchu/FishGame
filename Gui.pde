@@ -58,7 +58,7 @@ class Gui {
     if (!eh.gameStart) return;
     drawRightString("Predator Timer: " + eh.incoming/60, width - 180, guiZone/2 - 8, colors.get("red"), 16);
     drawRightString("WAVE: " + eh.wave, width - 180, guiZone/2 + 12, colors.get("white"), 12);
-    if (eh.incoming <= 300)
+    if (eh.incoming <= 300 && eh.wave != 6)
       drawCenteredString("INCOMING " + eh.incoming/60, width/2, height/2 + 30, colors.get("red"), 20); 
   }
 

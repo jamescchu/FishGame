@@ -2,6 +2,7 @@ class EventHandler extends Gui {
   int incoming;
   int wave;
   int waitTimer, waitAmount = 180;
+  int waitWinTimer;
   boolean gameStart = false, gameOver = false, gameWin = false;
 
   int foodEaten = 0;
@@ -27,9 +28,9 @@ class EventHandler extends Gui {
     if (eh.wave >= 6) { 
       eh.wave = 6;
       incoming = 0;
-      eh.waitTimer++;
+      eh.waitWinTimer++;
     } else incoming--;
-    if (eh.waitTimer >= eh.waitAmount * 2)
+    if (eh.waitWinTimer >= eh.waitAmount * 2)
       eh.gameWin = true;
   }
 
@@ -56,7 +57,7 @@ class EventHandler extends Gui {
     spawnLevel = 0;
     foodEaten = 0;
     waitTimer = 0;
-    incoming = 5400;
+    incoming = 3600;
     wave = 0;
   }
 

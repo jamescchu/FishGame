@@ -30,7 +30,7 @@ class FishPlayer extends Fish {
     }
   }
 
-  void mode(int type) {
+  void mode() {
     Vec2 location = box2d.coordPixelsToWorld(mp.getMover());
 
     speed = speedValue[speedLevel];
@@ -63,8 +63,7 @@ class FishPlayer extends Fish {
   }
 
   void run() {
-    int type = eh.gameStart ? 0 : 1;
-    mode(type);
+    mode();
     move();
     display();
     checkEdges();

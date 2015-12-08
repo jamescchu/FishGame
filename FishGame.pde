@@ -132,11 +132,6 @@ void beginContact(Contact cp) {
     p1.ate();
     p2.eaten();
   }
-
-  if (o1.getClass() == FishPlayer.class && o2.getClass() == FishEnemy.class) {
-    Fish p1 = (FishPlayer) o1;
-    p1.lost();
-  }
 }
 
 void endContact(Contact cp) {
