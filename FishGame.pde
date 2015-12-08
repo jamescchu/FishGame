@@ -69,8 +69,14 @@ void keyPressed ()
   if (key == 'l') {
     debug = !debug;
   }
-  if (key == 'k' && debug) {
-    eh.foodEaten++;
+  if (debug) {
+    if (key == 'k') {
+      eh.foodEaten += 5;
+    } else if (key == 'o') {
+      db.debugEndGame();
+    } else if (key == 'p') {
+      db.debugSpawnEnemy();
+    }
   }
   mp.pressed();
 }
@@ -85,10 +91,10 @@ void mouseClicked() {
     eh.startGame();
     return;
   }
-  if (eh.gameOver) { 
+  if (eh.gameOver && eh.waitTimer >= eh.waitAmount) { 
     eh.resetGame();
     return;
-  }
+  } else if (eh.gameOver) return;
   for ( Fish f : fh.fishes) {
     f.clicked();
   }

@@ -17,7 +17,7 @@ class FishEnemy extends Fish {
     noiseStrength = random(-0.5, -0.8);
     accStrength = random(0.8, 0.9);
 
-    fishLength = int(random(10, 25));
+    fishLength = 22;
 
     location = new PVector[fishLength];
 
@@ -53,8 +53,8 @@ class FishEnemy extends Fish {
   }
   
   void clicked() {
-    float dis = dist(location[0].x, location[0].y, mouseX, mouseY);
-    if (dis < fishSize + 12){
+    float dis = dist(location[location.length-1].x, location[location.length-1].y, mouseX, mouseY);
+    if (dis <= fishSize + 2){
       eh.hurt();
     }
   }

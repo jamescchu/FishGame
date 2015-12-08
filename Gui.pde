@@ -63,6 +63,7 @@ class Gui {
   }
 
   void showGameOver() { 
+    eh.waitTimer++;
     fill(0, 100);
     rectMode(CORNERS);
     rect(0, 0, width, height);
@@ -70,6 +71,7 @@ class Gui {
     drawCenteredString("GAME OVER", width/2, height/2, colors.get("red"), 100); 
     textFont(fontS);
     drawCenteredString("YOU MADE IT TO WAVE: " + eh.wave, width/2, height/2 + 30, colors.get("white"), 20); 
+    if (eh.waitTimer >= eh.waitAmount)
     drawCenteredString("CLICK TO RESTART", width/2, height/2 + 250, colors.get("orange"), 16);
   }
 

@@ -1,6 +1,7 @@
 class EventHandler extends Gui {
   int incoming;
   int wave;
+  int waitTimer, waitAmount = 180;
   boolean gameStart = false, gameOver = false;
 
   int speedLevel = 0;
@@ -67,7 +68,7 @@ class EventHandler extends Gui {
     }
     if (!eh.gameStart) return;
     incoming--;
-    if (incoming == 0) {
+    if (incoming <= 0) {
       eh.wave++;
       if (eh.wave > 5) eh.wave = 5;
       fh.spawnFishEnemy();
@@ -90,6 +91,7 @@ class EventHandler extends Gui {
     dmgLevel = 0;
     spawnLevel = 0;
     foodEaten = 0;
+    waitTimer = 0;
     incoming = 5400;
     wave = 0;
   }

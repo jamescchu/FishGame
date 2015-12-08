@@ -52,4 +52,12 @@ class Debug {
     text("SpawnRate: " + eh.spawnValue[eh.spawnLevel], 10, 188);
     text("EnemyHP: " + eh.hpEnemyValue[eh.wave], 10, 208);
   }
+  
+  void debugEndGame() {
+    eh.gameOver = true;
+  }
+  
+  void debugSpawnEnemy() {
+    eh.incoming = 0;
+  }
 }
