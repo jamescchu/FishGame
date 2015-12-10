@@ -93,7 +93,8 @@ void mouseClicked() {
   }
   if ((eh.gameOver && eh.waitTimer >= eh.waitAmount) || 
     (eh.gameWin && eh.waitTimer >= eh.waitAmount * 2)) { 
-    eh.resetGame();
+    eh.startGame();
+    eh.gameOver = false;
     return;
   } else if (eh.gameOver) return;
   for ( Fish f : fh.fishes) {
@@ -131,6 +132,11 @@ void beginContact(Contact cp) {
     Food p2 = (FoodSmall) o2;
     p1.ate();
     p2.eaten();
+  }
+
+  if (o1.getClass() == FishPlayer.class && o2.getClass() == FishEnemy.class) {
+    Fish p1 = (FishPlayer) o1;
+    p1.lost();
   }
 }
 
